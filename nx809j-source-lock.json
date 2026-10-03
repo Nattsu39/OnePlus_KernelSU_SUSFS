@@ -1,0 +1,68 @@
+{
+  "kernel": {
+    "repository": "Nattsu39/android_kernel_common_oneplus_sm8850",
+    "commit": "2efc589dc1f18db71d24a7d98990117dc1cd6dee",
+    "branch": "nx809j-resukisu-real-38",
+    "base_commit": "c1cb51cf29aabfd401f513a43ddfc0058e319997"
+  },
+  "toolchain_cache": "https://github.com/IronShing/OnePlus_KernelSU_SUSFS/releases/download/toolchain-cache",
+  "toolchains": [
+    {
+      "name": "clang",
+      "revision": "e6e84a60b1b4b68ee7de5a66fa63fc95fe9fe131",
+      "directory": "clang/host/linux-x86",
+      "required_binaries": ["clang-r547379/bin/clang", "clang-r547379/bin/ld.lld"],
+      "assets": [
+        {
+          "name": "clang-e6e84a60b1b4b68ee7de5a66fa63fc95fe9fe131.tar.gz.partaa",
+          "size": 1572864000,
+          "sha256": "3e875892545736cb7744395d009a60c5cb5f4b2a4ffb0a7d3fac6d800a8508cb"
+        },
+        {
+          "name": "clang-e6e84a60b1b4b68ee7de5a66fa63fc95fe9fe131.tar.gz.partab",
+          "size": 773911924,
+          "sha256": "8af897c49bc4941658c76d8dc05260f32cf893f869a5d01c6d034e5ad503921e"
+        }
+      ]
+    },
+    {
+      "name": "rust",
+      "revision": "6ff98fecc15373d056564f1ad13508f812d90fa9",
+      "directory": "rust",
+      "required_binaries": ["linux-x86/1.82.0/bin/rustc"],
+      "assets": [
+        {
+          "name": "rust-6ff98fecc15373d056564f1ad13508f812d90fa9.tar.gz",
+          "size": 1298684133,
+          "sha256": "f0b275381593b3d09e976dc3102f5726cc96ab6cf7ce2e702cbccb1cdedc1ea0"
+        }
+      ]
+    },
+    {
+      "name": "clang-tools",
+      "revision": "8d2e8177f56ed0543cc8866ecad6f9f32f25fffe",
+      "directory": "clang-tools",
+      "required_binaries": ["linux-x86/bin/bindgen"],
+      "assets": [
+        {
+          "name": "clang-tools-8d2e8177f56ed0543cc8866ecad6f9f32f25fffe.tar.gz",
+          "size": 61373884,
+          "sha256": "bf46d9469f2f0a6a4c63b86c919cd135dc68f91af7563be9cf68bce8bbee671b"
+        }
+      ]
+    },
+    {
+      "name": "kernel-build-tools",
+      "revision": "4ba19a61c7a0d63603e0d1c84eb2b610bff706a4",
+      "directory": "kernel-build-tools",
+      "required_binaries": ["linux-x86/bin/pahole"],
+      "assets": [
+        {
+          "name": "build-tools-4ba19a61c7a0d63603e0d1c84eb2b610bff706a4.tar.gz",
+          "size": 338462781,
+          "sha256": "b2a90c37371d9aee109738bdde6ca60581c173e027593bb3dd08b2d3abbffd52"
+        }
+      ]
+    }
+  ]
+}

@@ -3,11 +3,11 @@
   <remote fetch="https://git.codelinaro.org/clo/la" name="clo-la"/>
   <remote fetch="https://github.com/OnePlusOSS" name="origin"/>
   <remote fetch="https://github.com/WildKernels" name="wild"/>
-  <remote fetch="https://github.com/IronShing" name="camfix"/>
+  <remote fetch="https://github.com/Nattsu39" name="nx809j"/>
   <default remote="clo-la" revision="dummy_revision" sync-c="true" sync-tags="false"/>
   <project remote="wild" name="AnyKernel3" path="AnyKernel3" revision="d1ebdc2002c557ceff9939afc3098eb88916f464"/>
   
-  <project remote="camfix" name="android_kernel_common_oneplus_sm8850" path="kernel_platform/common" revision="nx809j-camfix-6.12.38" clone-depth="1">
+  <project remote="nx809j" name="android_kernel_common_oneplus_sm8850" path="kernel_platform/common" revision="2efc589dc1f18db71d24a7d98990117dc1cd6dee" clone-depth="1">
     <linkfile dest="kernel_platform/.source_date_epoch_dir" src="."/>
   </project>
   
