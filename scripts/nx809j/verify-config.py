@@ -9,6 +9,8 @@ from pathlib import Path
 REQUIRED = {
     "CONFIG_LOCALVERSION": '"-android16-OP-WILD"',
     "CONFIG_MODVERSIONS": "y",
+    "CONFIG_GENDWARFKSYMS": "y",
+    "CONFIG_EXTENDED_MODVERSIONS": "y",
     "CONFIG_LTO_NONE": "y",
     "CONFIG_CC_OPTIMIZE_FOR_PERFORMANCE": "y",
     "CONFIG_KSU": "y",

@@ -74,6 +74,11 @@
       ]
     }
   ],
+  "abi": {
+    "module_layout_crc": "0xe976b219",
+    "baseline_kernel_image_sha256": "a5b3735a95cb9a73433fa914d460154d295224ce08dd775e351d61c72cb689b2",
+    "gendwarfksyms_stable": true
+  },
   "build_patch": {
     "path": "configs/patches/0001-Enable-abl-and-efisp-flashing-for-efisp-exploit-devices.patch",
     "sha256": "aaec6e78bf4648bf5c957f8c3a7ebe2c018354a8005423cf1f0bffde98482cd3",

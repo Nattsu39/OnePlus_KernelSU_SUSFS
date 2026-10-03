@@ -34,6 +34,8 @@ clang_tools_dir="$toolchain_dir/clang-tools/linux-x86"
 build_tools_dir="$toolchain_dir/kernel-build-tools/linux-x86"
 export PATH="$clang_dir/bin:$rust_dir/bin:$clang_tools_dir/bin:$build_tools_dir/bin:$PATH"
 export ARCH=arm64 LLVM=1 LLVM_IAS=1 CROSS_COMPILE=aarch64-linux-gnu-
+# Honor Android KABI rules when generating CRCs for the unchanged vendor drivers.
+export KBUILD_GENDWARFKSYMS_STABLE=1
 export RUSTC="$rust_dir/bin/rustc" BINDGEN="$clang_tools_dir/bin/bindgen"
 export LIBCLANG_PATH="$clang_dir/lib" PAHOLE="$build_tools_dir/bin/pahole"
 export KBUILD_BUILD_USER=Nattsu39 KBUILD_BUILD_HOST=github-actions KBUILD_BUILD_VERSION=1
@@ -49,6 +51,7 @@ make_args=(-C "$source_dir" O="$output_dir" LOCALVERSION=)
 
 {
     echo "Kernel source: $actual_commit"
+    echo "KBUILD_GENDWARFKSYMS_STABLE=$KBUILD_GENDWARFKSYMS_STABLE"
     clang --version
     rustc --version
     bindgen --version
@@ -64,7 +67,13 @@ cp "$source_dir/Documentation/nx809j/source-provenance.json" "$artifact_dir/sour
 cp "$recipe_dir/nx809j-source-lock.json" "$artifact_dir/build-source-lock.json"
 git -C "$source_dir" log --format=fuller -1 > "$artifact_dir/kernel-commit.txt"
 
+make "${make_args[@]}" -j"$(nproc)" kernel/module/version.o 2>&1 | tee "$artifact_dir/module-layout-build.log"
+python3 "$recipe_dir/scripts/nx809j/verify-module-layout.py" \
+    "$recipe_dir/nx809j-source-lock.json" "$output_dir/kernel/module/.version.o.cmd"
+
 make "${make_args[@]}" -j"$(nproc)" Image modules 2>&1 | tee "$artifact_dir/build.log"
+python3 "$recipe_dir/scripts/nx809j/verify-module-layout.py" \
+    "$recipe_dir/nx809j-source-lock.json" "$output_dir/Module.symvers"
 for file in arch/arm64/boot/Image Module.symvers System.map vmlinux; do
     cp "$output_dir/$file" "$artifact_dir/$(basename "$file")"
 done

@@ -24,6 +24,12 @@ is preserved: standard BBG protection is the default; the additional `abl` and
 on the kernel command line. This recipe does not inject that boot parameter.
 The exception remains a patch file rather than a kernel source commit.
 
+CRC generation uses `KBUILD_GENDWARFKSYMS_STABLE=1` to honor Android KABI rules.
+The action checks the validated device's `module_layout` CRC (`0xe976b219`)
+before the full build and again in `Module.symvers`. A successful build still
+requires checking every device module import before flashing; this early check
+does not replace that compatibility verification.
+
 Run **Build NX809J ReSukiSU 6.12.38** on `nx809j-resukisu-real-38` in GitHub Actions.
 The artifact contains `Image`, built modules, the effective configuration,
 `Module.symvers`, `System.map`, `vmlinux`, source/toolchain provenance, build logs
