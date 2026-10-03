@@ -24,6 +24,13 @@ and checksums. It is a kernel build artifact, not an AnyKernel installer or a
 complete ROM. Existing ROM firmware inputs and DTBO pairing checks remain in
 the separate NX809J ROM build project.
 
+The local ROM build script's kernel integration is also committed in the
+`nx809j-avium-16.2` branches of `Nattsu39/android_vendor_lineage` (prebuilt kernel
+configuration) and `Nattsu39/android_kernel_nubia_NX809J` (display UAPI). The device
+tree fork removes the duplicate kernel hunk from its ROM patch bundle. The ROM
+script checks these pinned commits without editing kernel integration source;
+its other ROM patches and verified 6.12.23 firmware inputs remain available.
+
 To reproduce the kernel build on Linux with the usual kernel build dependencies:
 
 ```sh
