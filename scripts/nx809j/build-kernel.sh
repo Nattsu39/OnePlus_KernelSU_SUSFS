@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Build only committed source. All generated files belong in the output directory.
+# Build committed source plus the pinned BBG exception. Keep output separate.
 set -euo pipefail
 
 if [[ $# -ne 4 ]]; then
@@ -24,6 +24,9 @@ if [[ -n $(git -C "$source_dir" status --porcelain) ]]; then
     echo "The kernel checkout must be clean before building." >&2
     exit 1
 fi
+
+python3 "$recipe_dir/scripts/nx809j/apply-build-patch.py" apply \
+    "$source_dir" "$recipe_dir/nx809j-source-lock.json" "$artifact_dir"
 
 clang_dir="$toolchain_dir/clang/host/linux-x86/clang-r547379"
 rust_dir="$toolchain_dir/rust/linux-x86/1.82.0"
@@ -68,11 +71,8 @@ done
 make "${make_args[@]}" INSTALL_MOD_PATH="$artifact_dir/modules" modules_install 2>&1 | tee "$artifact_dir/modules-install.log"
 find "$artifact_dir/modules" -type l -name build -delete
 
-if [[ -n $(git -C "$source_dir" status --porcelain) ]]; then
-    echo "The build unexpectedly modified the kernel checkout." >&2
-    git -C "$source_dir" status --short >&2
-    exit 1
-fi
+python3 "$recipe_dir/scripts/nx809j/apply-build-patch.py" verify \
+    "$source_dir" "$recipe_dir/nx809j-source-lock.json" "$artifact_dir"
 file "$artifact_dir/Image"
 (
     cd "$artifact_dir"

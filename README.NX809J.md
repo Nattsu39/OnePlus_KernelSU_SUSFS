@@ -10,17 +10,27 @@ NTSync, Droidspaces IPC changes, memory/filesystem tuning and networking options
 The kernel repository records these as separate commits. Its
 `Documentation/nx809j/source-provenance.json` identifies all imported revisions.
 
-The former build action's setup scripts, patch commands and configuration edits
-have been removed. The new action verifies cache asset hashes, checks out the
-fixed kernel commit and builds with a separate output directory. It rejects
-missing required configuration or any build that modifies the source checkout.
-The OnePlus-specific BBG ABL/EFISP flashing exception is excluded; standard BBG
-partition protection is retained.
+The former build action's setup scripts and configuration edits have been
+replaced by committed source. The action verifies cache asset hashes, checks out
+the fixed kernel commit and builds with a separate output directory. It rejects
+missing required configuration or unexpected changes to the source checkout.
+
+The OnePlus-specific BBG ABL/EFISP exception is retained as the sole build-time
+patch, following the upstream recipe. Its origin, hash and two affected files
+are fixed in `nx809j-source-lock.json`. Only the source paths and a whitespace
+context line were adapted for the committed BBG layout. The original behavior
+is preserved: standard BBG protection is the default; the additional `abl` and
+`efisp` entries are used when `oplusboot.secure_user_mode=0` (or `false`) appears
+on the kernel command line. This recipe does not inject that boot parameter.
+The exception remains a patch file rather than a kernel source commit.
 
 Run **Build NX809J ReSukiSU 6.12.38** on `nx809j-resukisu-real-38` in GitHub Actions.
 The artifact contains `Image`, built modules, the effective configuration,
 `Module.symvers`, `System.map`, `vmlinux`, source/toolchain provenance, build logs
-and checksums. It is a kernel build artifact, not an AnyKernel installer or a
+and checksums. `source-provenance.json` describes the committed base;
+`applied-build-patch.json` and `applied-source.patch` record the applied exception.
+The build checks that this recorded diff is unchanged after compilation.
+It is a kernel build artifact, not an AnyKernel installer or a
 complete ROM. Existing ROM firmware inputs and DTBO pairing checks remain in
 the separate NX809J ROM build project.
 

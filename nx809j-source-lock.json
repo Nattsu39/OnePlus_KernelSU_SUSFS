@@ -11,7 +11,10 @@
       "name": "clang",
       "revision": "e6e84a60b1b4b68ee7de5a66fa63fc95fe9fe131",
       "directory": "clang/host/linux-x86",
-      "required_binaries": ["clang-r547379/bin/clang", "clang-r547379/bin/ld.lld"],
+      "required_binaries": [
+        "clang-r547379/bin/clang",
+        "clang-r547379/bin/ld.lld"
+      ],
       "assets": [
         {
           "name": "clang-e6e84a60b1b4b68ee7de5a66fa63fc95fe9fe131.tar.gz.partaa",
@@ -29,7 +32,9 @@
       "name": "rust",
       "revision": "6ff98fecc15373d056564f1ad13508f812d90fa9",
       "directory": "rust",
-      "required_binaries": ["linux-x86/1.82.0/bin/rustc"],
+      "required_binaries": [
+        "linux-x86/1.82.0/bin/rustc"
+      ],
       "assets": [
         {
           "name": "rust-6ff98fecc15373d056564f1ad13508f812d90fa9.tar.gz",
@@ -42,7 +47,9 @@
       "name": "clang-tools",
       "revision": "8d2e8177f56ed0543cc8866ecad6f9f32f25fffe",
       "directory": "clang-tools",
-      "required_binaries": ["linux-x86/bin/bindgen"],
+      "required_binaries": [
+        "linux-x86/bin/bindgen"
+      ],
       "assets": [
         {
           "name": "clang-tools-8d2e8177f56ed0543cc8866ecad6f9f32f25fffe.tar.gz",
@@ -55,7 +62,9 @@
       "name": "kernel-build-tools",
       "revision": "4ba19a61c7a0d63603e0d1c84eb2b610bff706a4",
       "directory": "kernel-build-tools",
-      "required_binaries": ["linux-x86/bin/pahole"],
+      "required_binaries": [
+        "linux-x86/bin/pahole"
+      ],
       "assets": [
         {
           "name": "build-tools-4ba19a61c7a0d63603e0d1c84eb2b610bff706a4.tar.gz",
@@ -64,5 +73,18 @@
         }
       ]
     }
-  ]
+  ],
+  "build_patch": {
+    "path": "configs/patches/0001-Enable-abl-and-efisp-flashing-for-efisp-exploit-devices.patch",
+    "sha256": "aaec6e78bf4648bf5c957f8c3a7ebe2c018354a8005423cf1f0bffde98482cd3",
+    "files": [
+      "security/baseband-guard/baseband_guard.h",
+      "security/baseband-guard/blkdev_helper.c"
+    ],
+    "upstream_repository": "WildKernels/kernel_patches",
+    "upstream_commit": "6414509867d99ce8b51bc84b1e5392e989388a68",
+    "upstream_path": "common/bbg/0001-Enable-abl-and-efisp-flashing-for-efisp-exploit-devices.patch",
+    "upstream_sha256": "5d9317e00c9098fb109904bcd2ee965e880dcc988a39cb272a0e34ca8f408abf",
+    "adaptation": "Adjust vendored BBG paths and remove trailing whitespace from one context line; behavior unchanged."
+  }
 }

@@ -1,5 +1,5 @@
 name: Build committed NX809J kernel
-description: Verify pinned toolchains and compile the immutable real-38 source
+description: Verify pinned toolchains and compile real-38 with the pinned BBG exception
 
 inputs:
   source_dir:
@@ -24,7 +24,7 @@ runs:
         TOOLCHAIN_DIR: ${{ inputs.toolchain_dir }}
       run: python3 scripts/nx809j/fetch-toolchains.py nx809j-source-lock.json "$TOOLCHAIN_DIR"
 
-    - name: Compile committed kernel source
+    - name: Apply pinned BBG exception and compile kernel
       shell: bash
       env:
         SOURCE_DIR: ${{ inputs.source_dir }}
