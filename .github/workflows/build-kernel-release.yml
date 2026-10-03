@@ -46,7 +46,7 @@ jobs:
           set -euo pipefail
           sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo apt-get update
-          sudo apt-get install -y bc bison flex libssl-dev libelf-dev file kmod rsync
+          sudo apt-get install -y bc bison flex libssl-dev libelf-dev libdw-dev pkg-config file kmod rsync
           df -h "$RUNNER_TEMP"
           free -h
 
